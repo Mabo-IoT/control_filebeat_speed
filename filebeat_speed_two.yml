@@ -1,0 +1,39 @@
+filebeat.inputs:
+
+- type: log
+
+  enabled: true
+
+  paths:
+
+    - /root/Desktop/mast1/*.log
+
+  multiline.pattern: ^\(
+
+  multiline.negate: true
+
+  multiline.match: after
+  
+  harvester_limit: 1
+  
+  close_inactive: 10s
+
+output.redis:
+
+  enabled: true
+
+  hosts: ["127.0.0.1"]
+
+  key: filebeat
+
+  db: 2
+  
+  loadbalance: true
+
+logging.level: info
+logging.to_files: true
+logging.files:
+  path: /root/Desktop/filebeat_logs
+  name: log.log 
+  keepfiles: 7
+  permissions: 0644
